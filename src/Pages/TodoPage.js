@@ -20,9 +20,30 @@ export const TodoPage = () => {
     setAddTodo(inputValue);
   };
 
+  const handleFormSubmit = () => {
+    fetch("/api/create", {
+      method: "POST",
+      body: JSON.stringify({
+        content: addTodo,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((message) => {
+        console.log(message);
+        setAddTodo("");
+      });
+  };
+
   return (
     <>
-      <Form userInput={addTodo} onFormChange={handleFormChange} />
+      <Form
+        userInput={addTodo}
+        onFormChange={handleFormChange}
+        onFormSubmit={handleFormSubmit}
+      />
       <Card listOfTodos={todo} />
     </>
   );
