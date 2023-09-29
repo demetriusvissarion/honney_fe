@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Card } from "../Components/Card/card";
+import { Form } from "../Components/Form/form";
 
 export const TodoPage = () => {
   const [todo, setTodo] = useState([]);
+  const [addTodo, setAddTodo] = useState("");
 
   useEffect(() => {
     fetch("/api")
@@ -11,12 +13,17 @@ export const TodoPage = () => {
           return response.json();
         }
       })
-      .then((data) => console.log(data));
+      .then((data) => setTodo(data));
   }, []);
+
+  const handleFormChange = (inputValue) => {
+    setAddTodo(inputValue);
+  };
 
   return (
     <>
-      <Card />
+      <Form userInput={addTodo} onFormChange={handleFormChange} />
+      <Card listOfTodos={todo} />
     </>
   );
 };
