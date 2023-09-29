@@ -37,6 +37,16 @@ export const TodoPage = () => {
       });
   };
 
+  const getLatestTodos = () => {
+    fetch("/api")
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+      })
+      .then((data) => setTodo(data));
+  };
+
   return (
     <>
       <Form
