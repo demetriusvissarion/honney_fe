@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -14,11 +14,16 @@ class Todo(db.Model):
         return f'{self.id} {self.content}'
 
 
+def todo_serializer(todo):
+    return {
+        'id': todo.id,
+        'content': todo.content
+    }
+
+
 @app.route('/api', methods=['GET'])
 def index():
-    return {
-        'name': ['orange, apple']
-    }
+    return jsonify([*map(todo_serializer, Todo.query.all())])
 
 
 if __name__ == '__main__':
