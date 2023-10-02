@@ -14,7 +14,8 @@ export const Show = () => {
 
   return (
     <div>
-      {todo.length > 0 && todo.map((data) => <div>{data.content}</div>)}
+      {todo.length > 0 &&
+        todo.map((data) => <div key="id">{data.content}</div>)}
       <Delete id={id} />
       <hr></hr>
       <Link to="/">Go Back</Link>
