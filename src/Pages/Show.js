@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Delete } from "../Components/Delete/delete";
+import { Edit } from "../Components/Edit/edit";
 import { useParams, Link } from "react-router-dom";
 
 export const Show = () => {
@@ -17,6 +18,7 @@ export const Show = () => {
       {todo.length > 0 &&
         todo.map((data) => <div key="id">{data.content}</div>)}
       <Delete id={id} />
+      <Edit id={id} />
       <hr></hr>
       <Link to="/">Go Back</Link>
     </div>

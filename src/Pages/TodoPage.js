@@ -7,13 +7,18 @@ export const TodoPage = () => {
   const [addTodo, setAddTodo] = useState("");
 
   useEffect(() => {
+    // fetch("http://localhost:5000/api")
+    // fetch("http://localhost:3000/api")
     fetch("/api")
       .then((response) => {
         if (response.ok) {
           return response.json();
         }
       })
-      .then((data) => setTodo(data));
+      .then((data) => {
+        // console.log(data);
+        setTodo(data);
+      });
   }, []);
 
   const handleFormChange = (inputValue) => {
@@ -32,12 +37,15 @@ export const TodoPage = () => {
     })
       .then((response) => response.json())
       .then((message) => {
-        console.log(message);
+        // console.log(message);
         setAddTodo("");
+        getLatestTodos();
       });
   };
 
   const getLatestTodos = () => {
+    // fetch("http://localhost:5000/api")
+    // fetch("http://localhost:3000/api")
     fetch("/api")
       .then((response) => {
         if (response.ok) {
@@ -46,6 +54,10 @@ export const TodoPage = () => {
       })
       .then((data) => setTodo(data));
   };
+
+  // console.log(
+  //   `This is the todo state from TodoPage.js exported as listOfTodos: ${todo}`
+  // );
 
   return (
     <>

@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 // const navigate = useNavigate();
 // navigate('/home');
 
-export const Delete = ({ id }) => {
+export const Edit = ({ id }) => {
   const history = useNavigate();
 
-  const deleteTodo = () => {
+  const editTodo = () => {
     fetch(`/api/${id}`, {
-      method: "DELETE",
+      method: "PUT",
       body: JSON.stringify({
         id: id,
       }),
@@ -24,7 +24,7 @@ export const Delete = ({ id }) => {
 
   return (
     <>
-      <button onClick={deleteTodo}>Delete</button>
+      <button onClick={editTodo}>EDIT</button>
     </>
   );
 };
