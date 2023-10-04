@@ -1,30 +1,42 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 
-// import { useNavigate } from 'react-router-dom';
-// const navigate = useNavigate();
-// navigate('/home');
+export const Edit = ({ id, initialContent, onUpdate }) => {
+  const [editMode, setEditMode] = useState(false);
+  const [newContent, setNewContent] = useState(initialContent);
 
-export const Edit = ({ id }) => {
-  const history = useNavigate();
-
-  const editTodo = () => {
+  const handleEdit = () => {
     fetch(`/api/${id}`, {
       method: "PUT",
       body: JSON.stringify({
-        id: id,
+        content: newContent, // Include the updated content
       }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        history("/");
+        onUpdate(data); // Notify the parent component of the update
+        setEditMode(false); // Disable edit mode after editing
       });
   };
 
   return (
-    <>
-      <button onClick={editTodo}>EDIT</button>
-    </>
+    <div>
+      {editMode ? (
+        <>
+          <input
+            type="text"
+            value={newContent}
+            onChange={(e) => setNewContent(e.target.value)}
+          />
+          <button onClick={handleEdit}>Save</button>
+          <button onClick={() => setEditMode(false)}>Cancel</button>
+        </>
+      ) : (
+        <button onClick={() => setEditMode(true)}>Edit</button>
+      )}
+    </div>
   );
 };

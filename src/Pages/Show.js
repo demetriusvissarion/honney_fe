@@ -13,13 +13,26 @@ export const Show = () => {
       .then((data) => setTodo(data));
   }, [id]);
 
+  const handleUpdate = (updatedTodo) => {
+    // Update the todo in the state
+    setTodo([updatedTodo]);
+  };
+
   return (
     <div>
       {todo.length > 0 &&
-        todo.map((data) => <div key="id">{data.content}</div>)}
-      <Delete id={id} />
-      <Edit id={id} />
-      <hr></hr>
+        todo.map((data) => (
+          <div key={data.id}>
+            {data.content}
+            <Edit
+              id={data.id}
+              initialContent={data.content}
+              onUpdate={handleUpdate}
+            />
+            <Delete id={data.id} />
+          </div>
+        ))}
+      <hr />
       <Link to="/">Go Back</Link>
     </div>
   );
