@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
   return (
     <div className="App">
-      <div class="image">
+      <div className="image">
         <h1>Todos</h1>
         <Router>
           <Routes>
